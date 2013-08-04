@@ -10,12 +10,6 @@
 
 \def\gridsystem@blockwidth#1#2{#1\linewidth/#2}
 
-\newenvironment{block}[1]{%
-\begin{minipage}[t]{\gridsystem@blockwidth#1}%
-}{%
-\end{minipage}%
-}
-
 \newlength{\gridsystem@cellsep}
 \setlength{\gridsystem@cellsep}{1.75em}
 
@@ -32,7 +26,7 @@
 	\newenvironment{cell}[1]{%
 		\begin{minipage}[t]{\gridsystem@blockwidth{##1}{#1}-\gridsystem@cellsep@corrected}%
 	}{%
-		\end{minipage}\ignorespaces%
+		\end{minipage}%
 		\@ignoretrue% Ignore spaces
 		\gridsystem@finishcell%
 	}
