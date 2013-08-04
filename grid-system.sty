@@ -2,6 +2,8 @@
 \ProvidesPackage{grid-system}[2013/08/08 v. 0.1 LaTeX Grid System]
 
 \RequirePackage{calc}
+\RequirePackage{xkeyval}
+\RequirePackage{ifthen}
 
 \newcommand{\gridsystem@cellwidth}[2]{#1\linewidth/#2}
 
@@ -10,20 +12,36 @@
 
 \newlength{\gridsystem@cellsep@corrected}
 
+\newcounter{gridsystem@cellinrow}
+
 % Macros to finish cells and rows, so that the areas between cells and rows can be defined very flexibly.
 \newcommand{\gridsystem@finishrow}{\bigskip}
-\newcommand{\gridsystem@finishcell}{\hspace{\gridsystem@cellsep@corrected}}
+\newcommand{\gridsystem@finishcell}{\hspace{\gridsystem@cellsep}}
+\newcommand{\gridsystem@finishlastcell}{}
 
+\define@key{row}{cellsep}{\setlength\gridsystem@cellsep{#1}}
 
-\newenvironment{row}[1]{
+\newlength{\celltemp}
+
+\def\convertto#1#2{\strip@pt\dimexpr #2*65536/\number\dimexpr 1#1#1}
+
+\newenvironment{row}[2][cellsep=1.75em]{
+	\setkeys{row}{#1}%
 	%The total space required for the gaps between must be equally distributed to the width of all columns.
-	\setlength{\gridsystem@cellsep@corrected}{2\gridsystem@cellsep/#1}%
+	\setlength{\gridsystem@cellsep@corrected}{2\gridsystem@cellsep/#2}%
+	\setcounter{gridsystem@cellinrow}{0}
 	\newenvironment{cell}[1]{%
-		\begin{minipage}[t]{\gridsystem@cellwidth{##1}{#1}-\gridsystem@cellsep@corrected}%
+		%\addtocounter{gridsystem@cellinrow}{1}
+		\stepcounter{gridsystem@cellinrow}%
+		\begin{minipage}[t]{\gridsystem@cellwidth{##1}{#2}-\gridsystem@cellsep@corrected}%
 	}{%
 		\end{minipage}%
 		\@ignoretrue% Ignore spaces
-		\gridsystem@finishcell%
+		\ifthenelse{\value{gridsystem@cellinrow}<#2}{%
+			\gridsystem@finishcell%
+		}{%
+%			\gridsystem@finishlastcell%
+		}%
 	}
 }{
 	\gridsystem@finishrow
