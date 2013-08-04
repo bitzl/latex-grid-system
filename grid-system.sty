@@ -2,13 +2,8 @@
 \ProvidesPackage{grid-system}[2013/08/08 v. 0.1 LaTeX Grid System]
 
 \RequirePackage{calc}
-\RequirePackage{ifthen}
 
-%\RequirePackage{forloop}
-%\newcounter{index}
-%\newcommand{\multiple}[2]{\forloop{index}{0}{\value{index} < #2}{#1 }}
-
-\def\gridsystem@blockwidth#1#2{#1\linewidth/#2}
+\newcommand{\gridsystem@cellwidth}[2]{#1\linewidth/#2}
 
 \newlength{\gridsystem@cellsep}
 \setlength{\gridsystem@cellsep}{1.75em}
@@ -24,7 +19,7 @@
 	%The total space required for the gaps between must be equally distributed to the width of all columns.
 	\setlength{\gridsystem@cellsep@corrected}{2\gridsystem@cellsep/#1}%
 	\newenvironment{cell}[1]{%
-		\begin{minipage}[t]{\gridsystem@blockwidth{##1}{#1}-\gridsystem@cellsep@corrected}%
+		\begin{minipage}[t]{\gridsystem@cellwidth{##1}{#1}-\gridsystem@cellsep@corrected}%
 	}{%
 		\end{minipage}%
 		\@ignoretrue% Ignore spaces
