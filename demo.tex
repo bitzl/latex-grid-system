@@ -6,6 +6,8 @@
 
 %\usepackage{cmbright}
 \usepackage[default,scale=0.95]{opensans}
+%\usepackage{inconsolata}
+\usepackage[scaled=0.85]{beramono}
 \renewcommand{\familydefault}{\sfdefault}
 
 \usepackage{blindtext}
@@ -20,11 +22,11 @@
 \section{Demo}
 \blindtext
 
-\begin{row}{3}
+\begin{row}[cellsep=0.5cm]{3}
 	\begin{cell}{1}
 	\section*{Overview}
 	\vspace{-1.5ex}
-	This shows the capabilities of grid-system with three equal columns.
+	This shows the capabilities of \texttt{grid-system} with three columns.
 	\end{cell}
 	\begin{cell}{1}
 	\section*{Why use it?}
@@ -36,7 +38,7 @@
 	\vspace{-1.5ex}
 	You want to contribute? Just fork me on Github, start discussions and send me you pull requests: %\url{https://github.com/bitzl/latex-grid-system}
 	\begin{center}
-	\href{https://github.com/bitzl/latex-grid-system}{bitzl/latex-grid-system}
+	\href{https://github.com/bitzl/latex-grid-system}{\tt bitzl/latex-grid-system}
 	\end{center}
 	\end{cell}
 \end{row}
