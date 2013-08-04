@@ -1,0 +1,37 @@
+% !TeX root=demo.tex
+\ProvidesPackage{grid-system}
+
+\RequirePackage{calc}
+\RequirePackage{ifthen}
+
+%\RequirePackage{forloop}
+%\newcounter{index}
+%\newcommand{\multiple}[2]{\forloop{index}{0}{\value{index} < #2}{#1 }}
+
+\def\gridsystem@blockwidth#1#2{#1\linewidth/#2}
+
+\newenvironment{block}[1]{%
+\begin{minipage}[t]{\gridsystem@blockwidth#1}%
+}{%
+\end{minipage}%
+}
+
+\newlength{\gridsystem@cellsep}
+\setlength{\gridsystem@cellsep}{1.75em}
+
+\newlength{\gridsystem@cellsep@corrected}
+
+\newcommand{\gridsystem@finishrow}{\bigskip}
+
+\newenvironment{row}[1]{
+	\setlength{\gridsystem@cellsep@corrected}{2\gridsystem@cellsep/#1}%
+	\newenvironment{cell}[1]{%
+		\begin{minipage}[t]{\gridsystem@blockwidth{##1}{#1}-\gridsystem@cellsep@corrected}%
+	}{%
+		\end{minipage}\ignorespaces%
+		\@ignoretrue%
+		\hspace{\gridsystem@cellsep@corrected}%
+	}
+}{
+	\gridsystem@finishrow
+}

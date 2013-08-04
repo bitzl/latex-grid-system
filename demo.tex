@@ -1,0 +1,70 @@
+\documentclass[DIV12]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+%\usepackage{cmbright}
+\usepackage[default,scale=0.95]{opensans}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{blindtext}
+\usepackage{grid-system}
+\usepackage{hyperref}
+
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+
+\section{Demo}
+\blindtext
+
+\begin{row}{3}
+	\begin{cell}{1}
+	\section*{Overview}
+	\vspace{-1.5ex}
+	This shows the capabilities of grid-system with three equal columns.
+	\end{cell}
+	\begin{cell}{1}
+	\section*{Why use it?}
+	\vspace{-1.5ex}
+	Sometimes you need to split your text in several independent columns based on equal division of the available space. This package allows you to easily do so.
+	\end{cell}
+	\begin{cell}{1}
+	\section*{Contribute}
+	\vspace{-1.5ex}
+	You want to contribute? Just fork me on Github, start discussions and send me you pull requests: %\url{https://github.com/bitzl/latex-grid-system}
+	\begin{center}
+	\href{https://github.com/bitzl/latex-grid-system}{bitzl/latex-grid-system}
+	\end{center}
+	\end{cell}
+\end{row}
+
+\begin{row}{3}
+	\begin{cell}{1}
+	\section*{Overview}
+	\vspace{-1.5ex}
+	This shows the capabilities of grid-system with three equal columns.
+	\end{cell}
+	\begin{cell}{2}
+	\section*{Why use it?}
+	\vspace{-1.5ex}
+	Sometimes you need to split your text in several independent columns based on equal division of the available space. This package allows you to easily do so.
+	\end{cell}
+\end{row}
+
+
+%\begin{row}{3}
+%	\begin{cell}{1}
+%	\section*{Overview}
+%	\blindtext
+%	\end{cell}
+%	\begin{cell}{1}
+%	\section*{Why use it?}
+%	\blindtext
+%	\end{cell}
+%\end{row}
+
+\blindtext
+\end{document}
