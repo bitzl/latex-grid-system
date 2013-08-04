@@ -1,5 +1,5 @@
 % !TeX root=demo.tex
-\ProvidesPackage{grid-system}
+\ProvidesPackage{grid-system}[2013/08/08 v. 0.1 LaTeX Grid System]
 
 \RequirePackage{calc}
 \RequirePackage{ifthen}
@@ -21,16 +21,20 @@
 
 \newlength{\gridsystem@cellsep@corrected}
 
+% Macros to finish cells and rows, so that the areas between cells and rows can be defined very flexibly.
 \newcommand{\gridsystem@finishrow}{\bigskip}
+\newcommand{\gridsystem@finishcell}{\hspace{\gridsystem@cellsep@corrected}}
+
 
 \newenvironment{row}[1]{
+	%The total space required for the gaps between must be equally distributed to the width of all columns.
 	\setlength{\gridsystem@cellsep@corrected}{2\gridsystem@cellsep/#1}%
 	\newenvironment{cell}[1]{%
 		\begin{minipage}[t]{\gridsystem@blockwidth{##1}{#1}-\gridsystem@cellsep@corrected}%
 	}{%
 		\end{minipage}\ignorespaces%
-		\@ignoretrue%
-		\hspace{\gridsystem@cellsep@corrected}%
+		\@ignoretrue% Ignore spaces
+		\gridsystem@finishcell%
 	}
 }{
 	\gridsystem@finishrow
