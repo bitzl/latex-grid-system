@@ -11,38 +11,38 @@
 \setlength{\gridsystem@cellsep}{1.75em}
 
 \newlength{\gridsystem@cellsep@corrected}
+\newlength{\gridsystem@one@cellwidth}
 
 \newcounter{gridsystem@cellinrow}
 
 % Macros to finish cells and rows, so that the areas between cells and rows can be defined very flexibly.
 \newcommand{\gridsystem@finishrow}{\bigskip}
-\newcommand{\gridsystem@finishcell}{\hspace{\gridsystem@cellsep}}
+%\newcommand{\gridsystem@finishcell}{\hspace{\gridsystem@cellsep}}
+\newcommand{\gridsystem@finishcell}{\hskip\gridsystem@cellsep}
 \newcommand{\gridsystem@finishlastcell}{}
 
 \define@key{row}{cellsep}{\setlength\gridsystem@cellsep{#1}}
 
-\newlength{\celltemp}
-
 \def\convertto#1#2{\strip@pt\dimexpr #2*65536/\number\dimexpr 1#1#1}
 
-\newenvironment{row}[2][cellsep=1.75em]{
+\newenvironment{row}[3][cellsep=1.75em]{
 	\setkeys{row}{#1}%
 	%The total space required for the gaps between must be equally distributed to the width of all columns.
-	\setlength{\gridsystem@cellsep@corrected}{2\gridsystem@cellsep/#2}%
+	%\setlength{\gridsystem@cellsep@corrected}{2\gridsystem@cellsep/#2}%
 	\setcounter{gridsystem@cellinrow}{0}
 	\newenvironment{cell}[1]{%
-		%\addtocounter{gridsystem@cellinrow}{1}
-		\stepcounter{gridsystem@cellinrow}%
-		\begin{minipage}[t]{\gridsystem@cellwidth{##1}{#2}-\gridsystem@cellsep@corrected}%
+		\addtocounter{gridsystem@cellinrow}{##1}%
+		\setlength{\gridsystem@one@cellwidth}{(\linewidth-\gridsystem@cellsep*(#3-1))/#2}%
+		\begin{minipage}[t]{##1\gridsystem@one@cellwidth}%
 	}{%
 		\end{minipage}%
 		\@ignoretrue% Ignore spaces
 		\ifthenelse{\value{gridsystem@cellinrow}<#2}{%
 			\gridsystem@finishcell%
 		}{%
-%			\gridsystem@finishlastcell%
+			\gridsystem@finishlastcell%
 		}%
 	}
 }{
-	\gridsystem@finishrow
+	\gridsystem@finishrow%
 }
