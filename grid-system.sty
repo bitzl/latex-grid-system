@@ -1,5 +1,5 @@
 % !TeX root=demo.tex
-\ProvidesPackage{grid-system}[2013/08/08 v. 0.1 LaTeX Grid System]
+\ProvidesPackage{grid-system}[2013/11/04 v. 0.1 LaTeX Grid System]
 
 \RequirePackage{calc}
 \RequirePackage{xkeyval}
@@ -10,25 +10,21 @@
 \newlength{\gridsystem@cellsep}
 \setlength{\gridsystem@cellsep}{1.75em}
 
-\newlength{\gridsystem@cellsep@corrected}
 \newlength{\gridsystem@one@cellwidth}
 
 \newcounter{gridsystem@cellinrow}
 
 % Macros to finish cells and rows, so that the areas between cells and rows can be defined very flexibly.
 \newcommand{\gridsystem@finishrow}{\bigskip}
-%\newcommand{\gridsystem@finishcell}{\hspace{\gridsystem@cellsep}}
 \newcommand{\gridsystem@finishcell}{\hskip\gridsystem@cellsep}
 \newcommand{\gridsystem@finishlastcell}{}
 
 \define@key{row}{cellsep}{\setlength\gridsystem@cellsep{#1}}
 
-\def\convertto#1#2{\strip@pt\dimexpr #2*65536/\number\dimexpr 1#1#1}
+%\def\convertto#1#2{\strip@pt\dimexpr #2*65536/\number\dimexpr 1#1#1}
 
 \newenvironment{row}[3][cellsep=1.75em]{
 	\setkeys{row}{#1}%
-	%The total space required for the gaps between must be equally distributed to the width of all columns.
-	%\setlength{\gridsystem@cellsep@corrected}{2\gridsystem@cellsep/#2}%
 	\setcounter{gridsystem@cellinrow}{0}
 	\newenvironment{cell}[1]{%
 		\addtocounter{gridsystem@cellinrow}{##1}%
