@@ -52,6 +52,7 @@ There are two environments to divide your area into boxes: \texttt{row} to divid
 \end{row}
 \end{lstlisting}
 
+Each cell is created using a \texttt{minipage} environment. In future versions the will be a switch to choose either minipages or parboxes.
 
 \section{Parameters}
 There is one optional parameter for the environment \texttt{row} right now:
@@ -94,7 +95,7 @@ limitations under the License.
 
 
 \section{Example}
-\begin{row}[cellsep=0.5cm]{3}{3}
+\begin{row}[cellsep=0.75cm]{3}{3}
 	\begin{cell}{1}
 	\section*{Overview}
 	\vspace{-1.5ex}
@@ -117,7 +118,7 @@ limitations under the License.
 
 \bigskip
 
-\begin{row}[cellsep=0.5cm]{3}{2}
+\begin{row}[cellsep=0.75cm]{3}{2}
 	\begin{cell}{2}
 	\section*{License}
 	\vspace{-1.5ex}
@@ -150,7 +151,7 @@ limitations under the License.
 
 \bigskip
 
-\begin{row}[cellsep=0.5cm]{3}{2}
+\begin{row}[cellsep=0.75cm]{3}{2}
 	\begin{cell}{1}
 	\section*{Short}
 	\vspace{-1.5ex}

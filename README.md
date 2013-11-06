@@ -29,3 +29,12 @@ Example:
     \end{cell}
 \end{row}
 ````
+
+Contribute
+==========
+
+This package is developed a GitHub:
+
+	https://github.com/bitzl/latex-grid-system
+
+Please feel free to fork and contribute.
