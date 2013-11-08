@@ -14,7 +14,7 @@ class Package(ZipFile):
         self.write(name, path.join(self.folder, new_name))
 
 
-def zip(zipfile='test.zip'):
+def zip(zipfile='grid-system.zip'):
     with Package(zipfile, 'grid-system') as zip:
         zip.add('grid-system.pdf')
         zip.add('grid-system.sty')
