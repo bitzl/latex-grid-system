@@ -23,22 +23,23 @@
 
 %\def\convertto#1#2{\strip@pt\dimexpr #2*65536/\number\dimexpr 1#1#1}
 
-\newenvironment{row}[3][cellsep=1.75em]{
-	\setkeys{row}{#1}%
-	\setcounter{gridsystem@cellinrow}{0}
-	\newenvironment{cell}[1]{%
-		\addtocounter{gridsystem@cellinrow}{##1}%
-		\setlength{\gridsystem@one@cellwidth}{(\linewidth-\gridsystem@cellsep*(#3-1))/#2}%
-		\begin{minipage}[t]{##1\gridsystem@one@cellwidth}%
+\newenvironment{row}[3][cellsep=1.75em]{%
+\setkeys{row}{#1}%
+\setcounter{gridsystem@cellinrow}{0}%
+\noindent%
+\newenvironment{cell}[1]{%
+	\addtocounter{gridsystem@cellinrow}{##1}%
+	\setlength{\gridsystem@one@cellwidth}{(\linewidth-\gridsystem@cellsep*(#3-1))/#2}%
+	\begin{minipage}[t]{##1\gridsystem@one@cellwidth}%
+}{%
+	\end{minipage}%
+	\@ignoretrue% Ignore spaces
+	\ifthenelse{\value{gridsystem@cellinrow}<#2}{%
+		\gridsystem@finishcell%
 	}{%
-		\end{minipage}%
-		\@ignoretrue% Ignore spaces
-		\ifthenelse{\value{gridsystem@cellinrow}<#2}{%
-			\gridsystem@finishcell%
-		}{%
-			\gridsystem@finishlastcell%
-		}%
-	}
+		\gridsystem@finishlastcell%
+	}%
+}%
 }{
 	\gridsystem@finishrow%
 }
