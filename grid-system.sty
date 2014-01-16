@@ -4,6 +4,7 @@
 \RequirePackage{calc}
 \RequirePackage{xkeyval}
 \RequirePackage{ifthen}
+\RequirePackage{environ,forloop}
 
 \newcommand{\gridsystem@cellwidth}[2]{#1\linewidth/#2}
 
@@ -42,4 +43,45 @@
 }%
 }{
 	\gridsystem@finishrow%
+}
+
+\NewEnviron{Cell}[1]{%
+	%\global\@namedef{gridsystem@cellcontent\arabic{gridsystem@cellcount}}{\BODY}%
+	\edef\@celltemp{\BODY}%
+	%\global\@namedef{gridsystem@cellcontent\arabic{gridsystem@cellcount}}{\@celltemp}%
+	\expandafter\global\expandafter\edef\csname gridsystem@cellcontent\arabic{gridsystem@cellcount}\endcsname{\@celltemp}%
+	\global\@namedef{gridsystem@cellwidth\arabic{gridsystem@cellcount}}{#1}%
+	\stepcounter{gridsystem@cellcount}%
+	\addtocounter{gridsystem@stripecount}{#1}%
+}
+
+%%%%
+%%%% equivalent of \@namedef for counters?
+%%%%
+
+\newcounter{gridsystem@cellcount}
+\newcounter{gridsystem@stripecount}
+
+\newenvironment{Row}[1][cellsep=1.75em]{%
+\setkeys{row}{#1}%
+\setcounter{gridsystem@cellinrow}{0}%
+\setcounter{gridsystem@stripecount}{0}%
+\noindent%
+}{%
+\setlength{\gridsystem@one@cellwidth}{(\linewidth-\gridsystem@cellsep*(\value{gridsystem@cellcount}-1))/\value{gridsystem@stripecount}}%
+% For each 1..gridsystem@cellcount
+\forloop{gridsystem@cellinrow}{0}{\value{gridsystem@cellinrow} < \value{gridsystem@cellcount}}{%
+\expandafter\begin{minipage}[t]{\dimexpr\@nameuse{gridsystem@cellwidth\arabic{gridsystem@cellinrow}}\gridsystem@one@cellwidth\relax}%
+\@nameuse{gridsystem@cellcontent\arabic{gridsystem@cellinrow}}%
+\end{minipage}%
+\@ignoretrue% Ignore spaces
+\ifthenelse{\value{gridsystem@cellinrow}<\value{gridsystem@cellcount}}{%
+	\gridsystem@finishcell%
+}{%
+	\gridsystem@finishlastcell%
+}%
+}%
+\setcounter{gridsystem@cellcount}{0}%
+\setcounter{gridsystem@stripecount}{0}%
+%\gridsystem@finishrow%
 }

@@ -6,9 +6,12 @@
 
 \usepackage[default,scale=0.95]{opensans}
 \usepackage[scaled=0.85]{beramono}
+%\usepackage[default,semibold]{sourcecodepro}
+%\usepackage[default,semibold]{sourcesanspro}
 
 
 \usepackage{listings}
+\usepackage{grid-system}
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{grid-system}
@@ -29,6 +32,8 @@
 \title{Grid System}
 \author{Marcus Bitzl\\ \url{marcus@bitzl.com}}
 
+\renewcommand{\emph}[1]{\textcolor{red!65!black}{#1}}
+
 \begin{document}
 \maketitle
 
@@ -37,12 +42,39 @@ Grid system is a package that implements grid-like layouts for \LaTeX, as it is 
 \end{abstract}
 
 \section{Usage}
-There are two environments to divide your area into boxes: \texttt{row} to divide your area into columns and \texttt{cell} to fill the area with content:
+\subsection{Overview}
+There are two methods to divide your row into multiple columns. The first one with uppercase \emph{Cell} and \emph{Row} is easier to use as it collects the content of the cells and calculates everything for you. As a result, it might break on certain contents (e.g. footnotes). For such cases, the second method with lowercase \emph{row} and \emph{cell} will work. These are more capable, but need more configuration.
 
 \medskip
 
+\subsection{The simple way}
+\minisec{Example:}
 \begin{lstlisting}
-\begin{row}{<Number of columns}{<Number of cells>}
+\begin{Row}%
+    \begin{Cell}{2}
+    This is a long row spanning two thirds of the text width. This one cannot have footnotes.
+    \end{Cell}
+    \begin{Cell}{1}
+    This is a long row spanning one third of the text width.
+    \end{Cell}
+\end{Row}
+\end{lstlisting}
+
+\minisec{Output:}
+\begin{Row}%
+	\begin{Cell}{2}
+	This is a long row spanning two thirds of the text width. This one cannot have footnotes.
+	\end{Cell}
+	\begin{Cell}{1}
+	This is a long row spanning one third of the text width.
+	\end{Cell}
+\end{Row}
+
+\clearpage
+
+\subsection{The complete way}
+\begin{lstlisting}
+\begin{row}{<Total number of columns}{<Number of cells>}%
 	\begin{cell}{<Number of columns to span>}
 	...
 	\end{cell}
@@ -51,6 +83,30 @@ There are two environments to divide your area into boxes: \texttt{row} to divid
 	\end{cell}
 \end{row}
 \end{lstlisting}
+
+\minisec{Example:}
+\begin{lstlisting}
+\begin{row}{3}{2}%
+	\begin{cell}{2}
+	...
+	\end{cell}
+	\begin{cell}{1}
+	...
+	\end{cell}
+\end{row}
+\end{lstlisting}
+
+\minisec{Output:}
+\begin{row}{3}{2}%
+	\begin{cell}{2}
+	This is a long row spanning two thirds of the text width\footnote{Yes, really!}, telling your nothing\footnote{But it has footnotes, yeah!}.
+	\end{cell}
+	\begin{cell}{1}
+	This is a long row spanning one third of the text width.
+	\end{cell}
+\end{row}
+
+\bigskip
 
 Each cell is created using a \texttt{minipage} environment. In future versions the will be a switch to choose either minipages or parboxes.
 

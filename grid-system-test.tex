@@ -7,19 +7,57 @@
 \usepackage[default,scale=0.95]{opensans}
 \usepackage[scaled=0.85]{beramono}
 
+\usepackage{showframe}
 \usepackage{grid-system}
 
-\setlength{\parindent}{0cm}
+%\setlength{\parindent}{0cm}
 
-\begin{document}
+\begin{document}%
 
-\begin{row}[cellsep=0.5cm]{3}{3}
-	\begin{cell}{1}
-	\end{cell}
-	\begin{cell}{1}
-	\end{cell}
-	\begin{cell}{1}
-	\end{cell}
+\begin{Row}%
+\begin{Cell}{2}
+This is a test for Cell and Row, with a text slightly longer than the row.
+\end{Cell}
+\begin{Cell}{1}
+And this is another text spanning many, rows, more than one. Lorem isum sit dolor amet.
+\end{Cell}
+\end{Row}
+
+\bigskip
+
+\begin{Row}%
+\begin{Cell}{2}
+This is a test for Cell and Row, with a text slightly longer than the row.
+\end{Cell}%
+\begin{Cell}{1}
+And this is another text spanning many, rows, more than one. Lorem isum sit dolor amet.
+\end{Cell}%
+\end{Row}
+
+\bigskip
+
+\begin{row}[cellsep=0.5cm]{3}{3}%
+\begin{cell}{1}
+This is a nice text, longer than one row.
+\end{cell}
+\begin{cell}{1}
+This is a nice text, longer than one row.
+\end{cell}
+\begin{cell}{1}
+This is a nice text, longer than one row.
+\end{cell}
+\end{row}
+
+\begin{row}[cellsep=0.5cm]{3}{3}%
+\begin{cell}{1}
+This is a nice text, longer than one row.
+\end{cell}
+\begin{cell}{1}
+This is a nice text, longer than one row.
+\end{cell}
+\begin{cell}{1}
+This is a nice text, longer than one row.
+\end{cell}
 \end{row}
 
 \bigskip
