@@ -47,9 +47,9 @@
 
 \NewEnviron{Cell}[1]{%
 	%\global\@namedef{gridsystem@cellcontent\arabic{gridsystem@cellcount}}{\BODY}%
-	\edef\@celltemp{\BODY}%
+	%\edef\@celltemp{\BODY}%
 	%\global\@namedef{gridsystem@cellcontent\arabic{gridsystem@cellcount}}{\@celltemp}%
-	\expandafter\global\expandafter\edef\csname gridsystem@cellcontent\arabic{gridsystem@cellcount}\endcsname{\@celltemp}%
+	\expandafter\global\expandafter\let\csname gridsystem@cellcontent\arabic{gridsystem@cellcount}\endcsname\BODY%
 	\global\@namedef{gridsystem@cellwidth\arabic{gridsystem@cellcount}}{#1}%
 	\stepcounter{gridsystem@cellcount}%
 	\addtocounter{gridsystem@stripecount}{#1}%
