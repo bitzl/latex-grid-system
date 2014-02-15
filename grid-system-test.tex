@@ -13,10 +13,6 @@
 
 %\setlength{\parindent}{0cm}
 
-\makeatletter
-\show\@textcolor
-\makeatother
-
 \begin{document}%
 \begin{Row}%
 \begin{Cell}{2}
@@ -44,6 +40,10 @@ And this is just another text spanning many, rows, more than one. Lorem isum sit
 \begin{row}[cellsep=0.5cm]{3}{3}%
 \begin{cell}{1}
 This is a nice text, longer than one row.
+
+\begin{tabular}{cc}\hline
+1 & 2\\\hline
+\end{tabular}
 \end{cell}
 \begin{cell}{1}
 This is a nice text, longer than one row.
