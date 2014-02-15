@@ -6,11 +6,8 @@
 
 \usepackage[default,scale=0.95]{opensans}
 \usepackage[scaled=0.85]{beramono}
-%\usepackage[default,semibold]{sourcecodepro}
-%\usepackage[default,semibold]{sourcesanspro}
 
-
-\usepackage{listings}
+\usepackage{listings,minted}
 \usepackage{grid-system}
 \usepackage{tabularx}
 \usepackage{booktabs}
@@ -43,22 +40,22 @@ Grid system is a package that implements grid-like layouts for \LaTeX, as it is 
 
 \section{Usage}
 \subsection{Overview}
-There are two methods to divide your row into multiple columns. The first one with uppercase \emph{Cell} and \emph{Row} is easier to use as it collects the content of the cells and calculates everything for you. As a result, it might break on certain contents (e.g. footnotes). For such cases, the second method with lowercase \emph{row} and \emph{cell} will work. These are more capable, but need more configuration.
+%There are two methods to divide your row into multiple columns. The first one with uppercase \emph{Cell} and \emph{Row} is easier to use as it collects the content of the cells and calculates everything for you. As a result, it might break on certain contents (e.g. footnotes). For such cases, the second method with lowercase \emph{row} and \emph{cell} will work. These are more capable, but need more configuration.
 
 \medskip
 
-\subsection{The simple way}
+\subsection{Default use:}
 \minisec{Example:}
-\begin{lstlisting}
+\begin{minted}{latex}
 \begin{Row}%
     \begin{Cell}{2}
-    This is a long row spanning two thirds of the text width. This one cannot have footnotes.
+    This is a long row spanning two thirds of the text width.
     \end{Cell}
     \begin{Cell}{1}
     This is a long row spanning one third of the text width.
     \end{Cell}
 \end{Row}
-\end{lstlisting}
+\end{minted}
 
 \minisec{Output:}
 \begin{Row}%
@@ -72,7 +69,9 @@ There are two methods to divide your row into multiple columns. The first one wi
 
 \clearpage
 
-\subsection{The complete way}
+\subsection{The (old) fallback}
+In earlier implementations, the default interface from above would not work for many content. As this has changed, this fallback will become deprecated in the next version unless someone finds an important case to keep it.
+
 \begin{lstlisting}
 \begin{row}{<Total number of columns}{<Number of cells>}%
 	\begin{cell}{<Number of columns to span>}
