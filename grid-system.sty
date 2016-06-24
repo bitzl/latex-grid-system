@@ -6,10 +6,13 @@
 \RequirePackage{ifthen}
 \RequirePackage{environ,forloop}
 
-\newcommand{\gridsystem@cellwidth}[2]{#1\linewidth/#2}
+\newlength{\gridsystem@rowwidth}
+\setlength{\gridsystem@rowwidth}{\linewidth}
 
 \newlength{\gridsystem@cellsep}
 \setlength{\gridsystem@cellsep}{1.75em}
+
+\newcommand{\gridsystem@cellwidth}[2]{#1\linewidth/#2}
 
 \newlength{\gridsystem@one@cellwidth}
 
@@ -21,16 +24,17 @@
 \newcommand{\gridsystem@finishlastcell}{}
 
 \define@key{row}{cellsep}{\setlength\gridsystem@cellsep{#1}}
+\define@key{row}{rowwidth}{\setlength\gridsystem@rowwidth{#1}}
 
 %\def\convertto#1#2{\strip@pt\dimexpr #2*65536/\number\dimexpr 1#1#1}
 
-\newenvironment{row}[3][cellsep=1.75em]{%
+\newenvironment{row}[3][cellsep=1.75em,rowwidth=\linewidth]{%
 \setkeys{row}{#1}%
 \setcounter{gridsystem@cellinrow}{0}%
 \noindent%
 \newenvironment{cell}[1]{%
 	\addtocounter{gridsystem@cellinrow}{##1}%
-	\setlength{\gridsystem@one@cellwidth}{(\linewidth-\gridsystem@cellsep*(#3-1))/#2}%
+	\setlength{\gridsystem@one@cellwidth}{(\gridsystem@rowwidth-\gridsystem@cellsep*(#3-1))/#2}%
 	\begin{minipage}[t]{##1\gridsystem@one@cellwidth}%
 }{%
 	\end{minipage}%
@@ -62,13 +66,13 @@
 \newcounter{gridsystem@cellcount}
 \newcounter{gridsystem@stripecount}
 
-\newenvironment{Row}[1][cellsep=1.75em]{%
+\newenvironment{Row}[1][cellsep=1.75em,rowwidth=\linewidth]{%
 \setkeys{row}{#1}%
 \setcounter{gridsystem@cellinrow}{0}%
 \setcounter{gridsystem@stripecount}{0}%
 \noindent%
 }{%
-\setlength{\gridsystem@one@cellwidth}{(\linewidth-\gridsystem@cellsep*(\value{gridsystem@cellcount}-1))/\value{gridsystem@stripecount}}%
+\setlength{\gridsystem@one@cellwidth}{(\gridsystem@rowwidth-\gridsystem@cellsep*(\value{gridsystem@cellcount}-1))/\value{gridsystem@stripecount}}%
 % For each 1..gridsystem@cellcount
 \forloop{gridsystem@cellinrow}{0}{\value{gridsystem@cellinrow} < \value{gridsystem@cellcount}}{%
 \expandafter\begin{minipage}[t]{\dimexpr\@nameuse{gridsystem@cellwidth\arabic{gridsystem@cellinrow}}\gridsystem@one@cellwidth\relax}%
