@@ -4,7 +4,7 @@
 \RequirePackage{calc}
 \RequirePackage{xkeyval}
 \RequirePackage{ifthen}
-\RequirePackage{environ,forloop}
+\RequirePackage{forloop}
 
 \newlength{\gridsystem@rowwidth}
 \setlength{\gridsystem@rowwidth}{\linewidth}
@@ -49,14 +49,19 @@
 	\gridsystem@finishrow%
 }
 
-\NewEnviron{Cell}[1]{%
+\newenvironment{Cell}[1]{%
 	%\global\@namedef{gridsystem@cellcontent\arabic{gridsystem@cellcount}}{\BODY}%
 	%\edef\@celltemp{\BODY}%
 	%\global\@namedef{gridsystem@cellcontent\arabic{gridsystem@cellcount}}{\@celltemp}%
-	\expandafter\global\expandafter\let\csname gridsystem@cellcontent\arabic{gridsystem@cellcount}\endcsname\BODY%
-	\global\@namedef{gridsystem@cellwidth\arabic{gridsystem@cellcount}}{#1}%
+	\xdef\gridsystem@cellstripes{#1}%
+	\expandafter\global\expandafter\let\csname gridsystem@cellcontent\arabic{gridsystem@cellcount}\endcsname%
+	\ignorespaces%
+}
+{%
+	\global\@namedef{gridsystem@cellwidth\arabic{gridsystem@cellcount}}{\gridsystem@cellstripes}%
 	\stepcounter{gridsystem@cellcount}%
-	\addtocounter{gridsystem@stripecount}{#1}%
+	\addtocounter{gridsystem@stripecount}{\gridsystem@cellstripes}%
+	\ignorespacesafterend%
 }
 
 %%%%
@@ -71,6 +76,7 @@
 \setcounter{gridsystem@cellinrow}{0}%
 \setcounter{gridsystem@stripecount}{0}%
 \noindent%
+\ignorespaces%
 }{%
 \setlength{\gridsystem@one@cellwidth}{(\gridsystem@rowwidth-\gridsystem@cellsep*(\value{gridsystem@cellcount}-1))/\value{gridsystem@stripecount}}%
 % For each 1..gridsystem@cellcount
@@ -88,4 +94,5 @@
 \setcounter{gridsystem@cellcount}{0}%
 \setcounter{gridsystem@stripecount}{0}%
 %\gridsystem@finishrow%
+\ignorespacesafterend%
 }
